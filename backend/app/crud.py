@@ -3,7 +3,15 @@ from typing import Any
 from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
-from app.models import Item, ItemCreate, User, UserCreate, UserUpdate
+from app.models import (
+    Item,
+    ItemCreate,
+    User,
+    UserCreate,
+    UserUpdate,
+    SensorReadingBase,
+    SensorReading,
+)
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
@@ -51,3 +59,13 @@ def create_item(*, session: Session, item_in: ItemCreate, owner_id: int) -> Item
     session.commit()
     session.refresh(db_item)
     return db_item
+
+
+def create_sensor_reading(
+    *, session: Session, sensor_reading: SensorReadingBase
+) -> SensorReading:
+    db_sensor_reading = SensorReading.model_validate(sensor_reading)
+    session.add(db_sensor_reading)
+    session.commit()
+    session.refresh(db_sensor_reading)
+    return db_sensor_reading
