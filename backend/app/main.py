@@ -40,7 +40,8 @@ async def store_environment_values() -> None:
 async def lifespan(app: FastAPI) -> AsyncGenerator[Any, Any]:
     print(f"Lifespan added for: {app}")
     # --- startup ---
-    scheduler.start()
+    if scheduler.state == 0:
+        scheduler.start()
     yield
     # --- shutdown ---
     scheduler.shutdown()
