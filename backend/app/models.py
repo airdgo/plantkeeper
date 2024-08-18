@@ -117,7 +117,7 @@ class NewPassword(SQLModel):
 
 
 class SensorReadingBase(SQLModel):
-    soil_humidity: float
+    soil_moisture: float
     air_humidity: float
     pressure: float
     temperature: float
@@ -143,3 +143,8 @@ class AmbientalData(BaseModel):
     temperature: float
     pressure: float
     humidity: float
+
+
+class PlantWateredStatus(BaseModel):
+    watered: bool
+    message: str
