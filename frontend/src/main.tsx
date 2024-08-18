@@ -5,7 +5,9 @@ import ReactDOM from "react-dom/client"
 import { routeTree } from "./routeTree.gen"
 
 import { StrictMode } from "react"
+import "react-day-picker/style.css"
 import { OpenAPI } from "./client"
+import "./main.css"
 import theme from "./theme"
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL
