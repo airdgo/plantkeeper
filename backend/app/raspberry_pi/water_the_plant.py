@@ -16,14 +16,14 @@ plant_status_messages = {
 }
 
 
-def percent_translation(raw_val) -> float:
+def percent_translation(raw_val: int) -> float:
     per_val = (
         abs((raw_val - ZERO_SATURATION) / (FULL_SATURATION - ZERO_SATURATION)) * 100
     )
     return round(per_val, 3)
 
 
-def start_watering(duration: int):
+def start_watering(duration: int) -> None:
     t_end = time() + duration
     pump.turn_on()
     try:
@@ -55,6 +55,9 @@ def water_the_plant(seconds: int = DEFAULT_WATERING_SECONDS) -> PlantWateredStat
         print(f"An error occurred: {e}")
         pump.turn_off()
         print("Failed to turn off the pump. Please check the system.")
+        return PlantWateredStatus(
+            watered=False, message="An error occurred while watering the plant."
+        )
 
 
 def read_soil_moisture() -> float:

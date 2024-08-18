@@ -27,7 +27,7 @@ def read_sensor_measurements(
     end_date: datetime | None = Query(None, example="2024-08-31T23:59:59"),
     skip: int = 0,
     limit: int = 100,
-):
+) -> SensorReadingsPublic:
     if start_date is None or end_date is None:
         raise HTTPException(
             status_code=400,
@@ -67,7 +67,7 @@ def read_sensor_measurements(
 
 
 @router.get("/now", response_model=SensorReadingBase)
-def read_sensor_Measurements_now():
+def read_sensor_Measurements_now() -> SensorReadingBase:
     soil_moisture = read_soil_moisture()
     ambiental_data = read_ambiental_data()
     uv = read_uv()

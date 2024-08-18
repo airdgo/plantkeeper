@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
-from app.raspberry_pi.water_the_plant import PlantWateredStatus, water_the_plant
+from app.models import PlantWateredStatus
+from app.raspberry_pi.water_the_plant import water_the_plant
 
 router = APIRouter()
 

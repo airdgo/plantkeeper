@@ -14,6 +14,7 @@ from app.raspberry_pi.water_the_plant import read_soil_moisture
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 @asynccontextmanager
 async def lifespan_context() -> AsyncGenerator[Session, None]:
     session_generator = get_db()
@@ -22,6 +23,7 @@ async def lifespan_context() -> AsyncGenerator[Session, None]:
         yield session
     finally:
         session_generator.close()
+
 
 def gather_sensor_data() -> SensorReadingBase:
     soil_moisture = read_soil_moisture()
@@ -37,6 +39,7 @@ def gather_sensor_data() -> SensorReadingBase:
     logger.info(f"Sensor data gathered: {sensor_reading}")
     return sensor_reading
 
+
 def store_reading(session: Session, sensor_reading: SensorReadingBase) -> None:
     try:
         create_sensor_reading(session=session, sensor_reading=sensor_reading)
@@ -46,7 +49,7 @@ def store_reading(session: Session, sensor_reading: SensorReadingBase) -> None:
         raise
 
 
-async def store_ambiental_status():
+async def store_ambiental_status() -> None:
     logger.info("Starting environment status storage task")
     async with lifespan_context() as session:
         try:

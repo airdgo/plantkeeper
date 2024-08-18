@@ -7,11 +7,11 @@
 # GPIO.output(PUMP_PIN, GPIO.LOW)
 
 
-def turn_on():
+def turn_on() -> None:
     print("turn on")
     # GPIO.output(PUMP_PIN, GPIO.HIGH)
 
 
-def turn_off():
+def turn_off() -> None:
     print("turn off")
     # GPIO.output(PUMP_PIN, GPIO.LOW)
