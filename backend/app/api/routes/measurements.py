@@ -23,8 +23,8 @@ router = APIRouter()
 @router.get("/", response_model=SensorReadingsPublic)
 def read_sensor_measurements(
     session: SessionDep,
-    start_date: datetime | None = Query(None, example="2024-07-31T00:00:00"),
-    end_date: datetime | None = Query(None, example="2024-08-31T23:59:59"),
+    start_date: datetime | None = Query(default=None, example="2024-07-31T00:00:00"),
+    end_date: datetime | None = Query(defaul=None, example="2024-08-31T23:59:59"),
     skip: int = 0,
     limit: int = 100,
 ) -> SensorReadingsPublic:
