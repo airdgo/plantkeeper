@@ -18,9 +18,9 @@ def db() -> Generator[Session, None, None]:
         init_db(session)
         yield session
         statement = delete(Item)
-        session.exec(statement)
+        session.execute(statement)
         statement = delete(User)
-        session.exec(statement)
+        session.execute(statement)
         session.commit()
 
 
