@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.10
+FROM arm64v8/python:3.10-buster
 
 WORKDIR /app/
 
@@ -26,3 +26,7 @@ COPY ./prestart.sh /app/
 COPY ./tests-start.sh /app/
 
 COPY ./app /app/app
+
+COPY ./start-reload.sh /start-reload.sh
+
+RUN chmod +x /start-reload.sh
