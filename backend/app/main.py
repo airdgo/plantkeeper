@@ -1,10 +1,9 @@
-# TODO uncomment on RPI
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from datetime import datetime, time
 from typing import Any, no_type_check
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import sentry_sdk
 from apscheduler.jobstores.memory import MemoryJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -46,7 +45,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[Any, Any]:
     # --- shutdown ---
     scheduler.shutdown()
     # clean GPIO pins
-    # GPIO.cleanup()
+    GPIO.cleanup()
 
 
 def custom_generate_unique_id(route: APIRoute) -> str:
