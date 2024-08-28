@@ -29,4 +29,7 @@ COPY ./app /app/app
 
 COPY ./start-reload.sh /start-reload.sh
 
+EXPOSE 80
+EXPOSE 8888
+
 RUN chmod +x /start-reload.sh
