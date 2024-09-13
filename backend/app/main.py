@@ -24,13 +24,13 @@ scheduler = AsyncIOScheduler(jobstores=jobstores, timezone="Europe/Bucharest")
 
 
 @no_type_check
-@scheduler.scheduled_job("interval", hours=2, start_date=start_of_day)
+@scheduler.scheduled_job("interval", hours=1, start_date=start_of_day)
 def check_if_needs_water() -> None:
     water_the_plant()
 
 
 @no_type_check
-@scheduler.scheduled_job("interval", hours=2)
+@scheduler.scheduled_job("interval", hours=1, start_date=start_of_day)
 async def store_environment_values() -> None:
     await store_ambiental_status()
 

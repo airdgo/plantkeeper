@@ -18,6 +18,7 @@ type Series = {
   [key: string]: {
     data: SingleMeasurement[]
     unit: MeasurementUnit
+    yUpperLimit?: number
   }
 }
 
@@ -40,6 +41,7 @@ const MeasurementChart = ({
     "Soil Moisture": {
       data: getMeasurement("soil_moisture"),
       unit: MeasurementUnit.SoilMoisture,
+      yUpperLimit: 110,
     },
     "Air Humidity": {
       data: getMeasurement("air_humidity"),
@@ -48,6 +50,7 @@ const MeasurementChart = ({
     Pressure: {
       data: getMeasurement("pressure"),
       unit: MeasurementUnit.Pressure,
+      yUpperLimit: 1100,
     },
     Temperature: {
       data: getMeasurement("temperature"),
@@ -67,7 +70,7 @@ const MeasurementChart = ({
     : measurementType
   const yAxisDomain: AxisDomain = [
     0,
-    measurementType === "Pressure" ? 1100 : "auto",
+    series[measurementType]?.yUpperLimit ?? "auto",
   ]
 
   return (

@@ -62,4 +62,5 @@ def water_the_plant(seconds: int = DEFAULT_WATERING_SECONDS) -> PlantWateredStat
 
 def read_soil_moisture() -> float:
     moisture = read_with_spi(0)
-    return percent_translation(moisture)
+    moisture_percent = percent_translation(moisture)
+    return moisture_percent if moisture_percent < 100 else 100

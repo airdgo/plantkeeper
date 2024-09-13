@@ -11,6 +11,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
       - POSTGRES_USER=${POSTGRES_USER?Variable not set}
       - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+      - TZ=${TIMEZONE?Etc/UTC}
 
   adminer:
     image: adminer
@@ -22,6 +23,7 @@ services:
       - db
     environment:
       - ADMINER_DESIGN=pepa-linha-dark
+      - TZ=${TIMEZONE?Etc/UTC}
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik-public
@@ -38,9 +40,14 @@ services:
   backend:
     image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
     restart: always
+    privileged: true         # Grants the container elevated privileges
     networks:
       - traefik-public
       - default
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
+    volumes:
+      - "/sys/class/gpio:/sys/class/gpio"
     depends_on:
       - db
     env_file:
@@ -63,12 +70,12 @@ services:
       - POSTGRES_USER=${POSTGRES_USER?Variable not set}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
       - SENTRY_DSN=${SENTRY_DSN}
-
+      - TZ=${TIMEZONE?Etc/UTC}
     build:
       context: ./backend
       args:
         INSTALL_DEV: ${INSTALL_DEV-false}
-    platform: linux/amd64 # Patch for M1 Mac
+    platform: linux/amd64
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik-public
