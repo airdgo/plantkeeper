@@ -1,8 +1,8 @@
 import { Box, Container, Flex, Text } from "@chakra-ui/react"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
-import { MeasurementsService, type UserPublic } from "../../client"
+import { MeasurementsService } from "../../client"
 import MeasurementDetails from "../../components/Dashboard/MeasurementDetails"
 import SoilMoistureIndicator from "../../components/Dashboard/SoilMoistureIndixator"
 
@@ -11,10 +11,6 @@ export const Route = createFileRoute("/_layout/")({
 })
 
 function Dashboard() {
-  const queryClient = useQueryClient()
-
-  const currentUser = queryClient.getQueryData<UserPublic>(["currentUser"])
-
   const { data } = useQuery({
     queryKey: ["measurement"],
     queryFn: () => MeasurementsService.makeMeasurement(),
@@ -36,7 +32,7 @@ function Dashboard() {
       <Container maxW="full">
         <Box pt={12} m={4}>
           <Text fontSize="2xl">
-            Hi, {currentUser?.full_name || currentUser?.email} 👋🏼
+            Hi there 👋🏼
           </Text>
           <Text>Welcome back, nice to see you again!</Text>
         </Box>
