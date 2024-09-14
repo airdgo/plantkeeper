@@ -46,7 +46,7 @@ def store_reading(session: Session, sensor_reading: SensorReadingBase) -> None:
         logger.info("Sensor reading stored successfully")
     except Exception as e:
         logger.error(f"Failed to store sensor reading: {e}")
-        raise
+        raise e
 
 
 async def store_ambiental_status() -> None:
