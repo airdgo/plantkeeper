@@ -67,7 +67,7 @@ def read_sensor_measurements(
 
 
 @router.get("/now", response_model=SensorReadingBase)
-def read_sensor_Measurements_now() -> SensorReadingBase:
+def read_sensor_measurements_now() -> SensorReadingBase:
     soil_moisture = read_soil_moisture()
     ambiental_data = read_ambiental_data()
     uv = read_uv()

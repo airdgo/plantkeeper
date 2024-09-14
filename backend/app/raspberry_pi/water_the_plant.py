@@ -11,7 +11,7 @@ from app.raspberry_pi.config import (
 from app.raspberry_pi.read_with_spi import read_with_spi
 
 plant_status_messages = {
-    "watered": "Plant watered.",
+    "watered": "Plant has been watered successfully.",
     "not_watered": "Soil moisture is sufficient. No need to water the plant.",
 }
 
