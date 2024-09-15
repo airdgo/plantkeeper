@@ -1,16 +1,4 @@
-name: Test
-
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    types:
-      - opened
-      - synchronize
-
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +10,18 @@ jobs:
         with:
           python-version: '3.10'
 
-      - run: docker compose build
+        # Set up QEMU to emulate ARM architecture
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      # Set up Docker Buildx for multi-platform builds (including ARM)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image for ARM
+      - run: docker buildx build --platform linux/arm64 -t airdgo/backend:arm-latest .
+
+      - run: docker compose up -d
       - run: docker compose down -v --remove-orphans
       - run: docker compose up -d
       - name: Lint
