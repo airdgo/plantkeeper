@@ -1,238 +1,101 @@
-# Full Stack FastAPI Template
+# Plantkeeper - Automated Irrigation System
 
-<a href="https://github.com/tiangolo/full-stack-fastapi-template/actions?query=workflow%3ATest" target="_blank"><img src="https://github.com/tiangolo/full-stack-fastapi-template/workflows/Test/badge.svg" alt="Test"></a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/tiangolo/full-stack-fastapi-template" target="_blank"><img src="https://coverage-badge.samuelcolvin.workers.dev/tiangolo/full-stack-fastapi-template.svg" alt="Coverage"></a>
+![Installed Project](img/project-demo.jpeg)
 
-## Technology Stack and Features
+# Table of Contents
+1. [Project Description](#project-description)
+2. [Features](#features)
+3. [Hardware Components](#hardware-components)
+4. [Software Components](#software-components)
+5. [System Architecture](#system-architecture)
+6. [Wiring Diagram](#wiring-diagram)
+7. [Installation and Setup](#installation-and-setup)
+8. [Access the Application](#access-the-application)
+9. [Acknowledgments](#acknowledgments)
+10. [License](#license)
 
-- ⚡ [**FastAPI**](https://fastapi.tiangolo.com) for the Python backend API.
-    - 🧰 [SQLModel](https://sqlmodel.tiangolo.com) for the Python SQL database interactions (ORM).
-    - 🔍 [Pydantic](https://docs.pydantic.dev), used by FastAPI, for the data validation and settings management.
-    - 💾 [PostgreSQL](https://www.postgresql.org) as the SQL database.
-- 🚀 [React](https://react.dev) for the frontend.
-    - 💃 Using TypeScript, hooks, Vite, and other parts of a modern frontend stack.
-    - 🎨 [Chakra UI](https://chakra-ui.com) for the frontend components.
-    - 🤖 An automatically generated frontend client.
-    - 🦇 Dark mode support.
-- 🐋 [Docker Compose](https://www.docker.com) for development and production.
-- 🔒 Secure password hashing by default.
-- 🔑 JWT token authentication.
-- 📫 Email based password recovery.
-- ✅ Tests with [Pytest](https://pytest.org).
-- 📞 [Traefik](https://traefik.io) as a reverse proxy / load balancer.
-- 🚢 Deployment instructions using Docker Compose, including how to set up a frontend Traefik proxy to handle automatic HTTPS certificates.
-- 🏭 CI (continuous integration) and CD (continuous deployment) based on GitHub Actions.
+## Project Description
+This project implements an automated irrigation system designed to optimize water usage for plant care using a Raspberry Pi. By integrating various environmental sensors, the system monitors conditions such as soil moisture, air humidity, temperature, pressure, and UV index, and adjusts the watering schedule accordingly.
 
-### Dashboard Login
+## Features
+- Real-time monitoring of environmental conditions.
+- Automated irrigation based on soil moisture levels.
+- User-friendly web interface for manual control and data visualization.
+- Data logging and trend analysis to optimize water usage.
 
-[![API docs](img/login.png)](https://github.com/tiangolo/full-stack-fastapi-template)
+## Hardware Components
+- Raspberry Pi 4 Model B - Central controller.
+- Sensors:
+    - Environment Sensor (Pressure, Temperature, Humidity) (BME280)
+    - Capacitive Soil Moisture Sensor
+    - UV Sensor (GUVA-S12SD)
+- MCP3008 ADC for analog-to-digital signal conversion.
+- 12V Solenoid Valve with MOSFET module for water control.
+- 12V Power Supply
+- MOSFET module (IRF520) 
+- Additional components: Breadboard, jumper wires, and wood frame.
 
-### Dashboard - Admin
+## Software Components
+This project is based on the [Full Stack FastAPI Template](https://github.com/fastapi/full-stack-fastapi-template) 
+- [FastAPI](https://fastapi.tiangolo.com) for the Python backend API.
+- [PostgreSQL](https://www.postgresql.org) as the SQL database.
+- [React](https://react.dev) for the frontend.
+- [Docker Compose](https://www.docker.com) for development and production.
 
-[![API docs](img/dashboard.png)](https://github.com/tiangolo/full-stack-fastapi-template)
+## System Architecture
+![System Architecture Diagram](img/system-architecture.png)
 
-### Dashboard - Create User
+## Wiring Diagram
+![Fritzing Diagram](img/fritzing-diagram.jpg)
 
-[![API docs](img/dashboard-create.png)](https://github.com/tiangolo/full-stack-fastapi-template)
+## Installation and Setup
 
-### Dashboard - Items
+### Prerequisites
+Before setting up the automated irrigation system, ensure that the following prerequisites are met:
+- [Raspberry Pi OS is installed](https://www.raspberrypi.com/software/)
+- I2C and SPI are enabled using [raspi-config](https://www.raspberrypi.com/documentation/computers/configuration.htmlhttps://www.raspberrypi.com/documentation/computers/configuration.html) 
+- SSH is enabled (only if you plan to connect to the Raspberry Pi remotely)
+- Docker, can be installed from [here](https://docs.docker.com/engine/install/debian/)
 
-[![API docs](img/dashboard-items.png)](https://github.com/tiangolo/full-stack-fastapi-template)
-
-### Dashboard - User Settings
-
-[![API docs](img/dashboard-user-settings.png)](https://github.com/tiangolo/full-stack-fastapi-template)
-
-### Dashboard - Dark Mode
-
-[![API docs](img/dashboard-dark.png)](https://github.com/tiangolo/full-stack-fastapi-template)
-
-### Interactive API Documentation
-
-[![API docs](img/docs.png)](https://github.com/tiangolo/full-stack-fastapi-template)
-
-## How To Use It
-
-You can **just fork or clone** this repository and use it as is.
-
-✨ It just works. ✨
-
-### How to Use a Private Repository
-
-If you want to have a private repository, GitHub won't allow you to simply fork it as it doesn't allow changing the visibility of forks.
-
-But you can do the following:
-
-- Create a new GitHub repo, for example `my-full-stack`.
-- Clone this repository manually, set the name with the name of the project you want to use, for example `my-full-stack`:
-
+### Setup Instructions
+1. Clone the Repository:
 ```bash
-git clone git@github.com:tiangolo/full-stack-fastapi-template.git my-full-stack
+git clone https://github.com/airdgo/plantkeeper.git
+cd plantkeeper
+```
+2. Configure the Environment:
+- If necessary, customize environment variables (e.g., database settings) by editing the .env file in the project directory.
+3. Run the Application:
+- Use Docker Compose to start the application:
+```bash
+docker compose up
+```
+- This command will pull necessary images, build the containers, and start the backend, database, and frontend.
+
+## Access the Application
+Once the application is running, access the web interface by navigating to http://dev.plantkeeper.com in your web browser from the Raspberry Pi.
+
+If you want to access the application from a different computer you need to open your `hosts` file on that computer with administrative privileges using a text editor:
+
+* **Note for Windows**: If you are in Windows, open the main Windows menu, search for "notepad", right click on it, and select the option "open as Administrator" or similar. Then click the "File" menu, "Open file", go to the directory `c:\Windows\System32\Drivers\etc\`, select the option to show "All files" instead of only "Text (.txt) files", and open the `hosts` file.
+* **Note for Mac and Linux**: Your `hosts` file is probably located at `/etc/hosts`, you can edit it in a terminal running `sudo nano /etc/hosts`.
+
+* Additional to the contents it might have, add a new line with the Raspberry Pi IP (e.g. `192.168.99.150`) a space character, and the fake local domain: `dev.plantkeeper.com`.
+
+The new line might look like:
+
+```
+192.168.99.150    dev.plantkeeper.com
 ```
 
-- Enter into the new directory:
+* Save the file.
+  * **Note for Windows**: Make sure you save the file as "All files", without an extension of `.txt`. By default, Windows tries to add the extension. Make sure the file is saved as is, without extension.
 
-```bash
-cd my-full-stack
-```
+...that will make your computer think that the fake local domain is served by that custom IP, and when you open that URL in your browser, it will talk directly to your locally running server when it is asked to go to `dev.plantkeeper.com` and think that it is a remote server while it is actually running in your computer.
 
-- Set the new origin to your new repository, copy it from the GitHub interface, for example:
+# Acknowledgments
+- Special thanks to the open-source community and libraries that made this project possible.
+- Template for the application provided by Tiangolo’s [Full Stack FastAPI Template](https://github.com/fastapi/full-stack-fastapi-template)
 
-```bash
-git remote set-url origin git@github.com:octocat/my-full-stack.git
-```
-
-- Add this repo as another "remote" to allow you to get updates later:
-
-```bash
-git remote add upstream git@github.com:tiangolo/full-stack-fastapi-template.git
-```
-
-- Push the code to your new repository:
-
-```bash
-git push -u origin master
-```
-
-### Update From the Original Template
-
-After cloning the repository, and after doing changes, you might want to get the latest changes from this original template.
-
-- Make sure you added the original repository as a remote, you can check it with:
-
-```bash
-git remote -v
-
-origin    git@github.com:octocat/my-full-stack.git (fetch)
-origin    git@github.com:octocat/my-full-stack.git (push)
-upstream    git@github.com:tiangolo/full-stack-fastapi-template.git (fetch)
-upstream    git@github.com:tiangolo/full-stack-fastapi-template.git (push)
-```
-
-- Pull the latest changes without merging:
-
-```bash
-git pull --no-commit upstream master
-```
-
-This will download the latest changes from this template without committing them, that way you can check everything is right before committing.
-
-- If there are conflicts, solve them in your editor.
-
-- Once you are done, commit the changes:
-
-```bash
-git merge --continue
-```
-
-### Configure
-
-You can then update configs in the `.env` files to customize your configurations.
-
-Before deploying it, make sure you change at least the values for:
-
-- `SECRET_KEY`
-- `FIRST_SUPERUSER_PASSWORD`
-- `POSTGRES_PASSWORD`
-
-You can (and should) pass these as environment variables from secrets.
-
-Read the [deployment.md](./deployment.md) docs for more details.
-
-### Generate Secret Keys
-
-Some environment variables in the `.env` file have a default value of `changethis`.
-
-You have to change them with a secret key, to generate secret keys you can run the following command:
-
-```bash
-python -c "import secrets; print(secrets.token_urlsafe(32))"
-```
-
-Copy the content and use that as password / secret key. And run that again to generate another secure key.
-
-## How To Use It - Alternative With Copier
-
-This repository also supports generating a new project using [Copier](https://copier.readthedocs.io).
-
-It will copy all the files, ask you configuration questions, and update the `.env` files with your answers.
-
-### Install Copier
-
-You can install Copier with:
-
-```bash
-pip install copier
-```
-
-Or better, if you have [`pipx`](https://pipx.pypa.io/), you can run it with:
-
-```bash
-pipx install copier
-```
-
-**Note**: If you have `pipx`, installing copier is optional, you could run it directly.
-
-### Generate a Project With Copier
-
-Decide a name for your new project's directory, you will use it below. For example, `my-awesome-project`.
-
-Go to the directory that will be the parent of your project, and run the command with your project's name:
-
-```bash
-copier copy https://github.com/tiangolo/full-stack-fastapi-template my-awesome-project --trust
-```
-
-If you have `pipx` and you didn't install `copier`, you can run it directly:
-
-```bash
-pipx run copier copy https://github.com/tiangolo/full-stack-fastapi-template my-awesome-project --trust
-```
-
-**Note** the `--trust` option is necessary to be able to execute a [post-creation script](https://github.com/tiangolo/full-stack-fastapi-template/blob/master/.copier/update_dotenv.py) that updates your `.env` files.
-
-### Input Variables
-
-Copier will ask you for some data, you might want to have at hand before generating the project.
-
-But don't worry, you can just update any of that in the `.env` files afterwards.
-
-The input variables, with their default values (some auto generated) are:
-
-- `project_name`: (default: `"FastAPI Project"`) The name of the project, shown to API users (in .env).
-- `stack_name`: (default: `"fastapi-project"`) The name of the stack used for Docker Compose labels and project name (no spaces, no periods) (in .env).
-- `secret_key`: (default: `"changethis"`) The secret key for the project, used for security, stored in .env, you can generate one with the method above.
-- `first_superuser`: (default: `"admin@example.com"`) The email of the first superuser (in .env).
-- `first_superuser_password`: (default: `"changethis"`) The password of the first superuser (in .env).
-- `smtp_host`: (default: "") The SMTP server host to send emails, you can set it later in .env.
-- `smtp_user`: (default: "") The SMTP server user to send emails, you can set it later in .env.
-- `smtp_password`: (default: "") The SMTP server password to send emails, you can set it later in .env.
-- `emails_from_email`: (default: `"info@example.com"`) The email account to send emails from, you can set it later in .env.
-- `postgres_password`: (default: `"changethis"`) The password for the PostgreSQL database, stored in .env, you can generate one with the method above.
-- `sentry_dsn`: (default: "") The DSN for Sentry, if you are using it, you can set it later in .env.
-
-## Backend Development
-
-Backend docs: [backend/README.md](./backend/README.md).
-
-## Frontend Development
-
-Frontend docs: [frontend/README.md](./frontend/README.md).
-
-## Deployment
-
-Deployment docs: [deployment.md](./deployment.md).
-
-## Development
-
-General development docs: [development.md](./development.md).
-
-This includes using Docker Compose, custom local domains, `.env` configurations, etc.
-
-## Release Notes
-
-Check the file [release-notes.md](./release-notes.md).
-
-## License
-
-The Full Stack FastAPI Template is licensed under the terms of the MIT license.
+# License
+This project is licensed under the MIT License.
