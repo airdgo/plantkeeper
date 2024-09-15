@@ -1,0 +1,9 @@
+/* Datepicker variables */
+.rdp-root {
+  --rdp-accent-color: #009688;
+  --rdp-accent-background-color: #f0f0f0;
+}
+
+[data-theme="dark"] .rdp-root {
+  --rdp-accent-background-color: RGBA(0, 0, 0, 0.16); /* Change the accent background color. */
+}

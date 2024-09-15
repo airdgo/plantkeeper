@@ -26,6 +26,8 @@ sqlmodel = "^0.0.16"
 bcrypt = "4.0.1"
 pydantic-settings = "^2.2.1"
 sentry-sdk = {extras = ["fastapi"], version = "^1.40.6"}
+rpi-bme280 = "^0.2.4"
+apscheduler = "^3.10.4"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.3"
@@ -69,3 +71,7 @@ ignore = [
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[[tool.mypy.overrides]]
+module = "apscheduler.*"
+ignore_missing_imports = true
