@@ -2,6 +2,10 @@
 
 ![Installed Project](img/project-demo.jpeg)
 
+![Dashboard View](img/dashboard.png)
+
+![Measurements View](img/measurements.png)
+
 # Table of Contents
 1. [Project Description](#project-description)
 2. [Features](#features)
@@ -52,7 +56,7 @@ This project is based on the [Full Stack FastAPI Template](https://github.com/fa
 
 ### Prerequisites
 Before setting up the automated irrigation system, ensure that the following prerequisites are met:
-- [Raspberry Pi OS is installed](https://www.raspberrypi.com/software/)
+- [Raspberry Pi OS](https://www.raspberrypi.com/software/) is installed
 - I2C and SPI are enabled using [raspi-config](https://www.raspberrypi.com/documentation/computers/configuration.htmlhttps://www.raspberrypi.com/documentation/computers/configuration.html) 
 - SSH is enabled (only if you plan to connect to the Raspberry Pi remotely)
 - Docker, can be installed from [here](https://docs.docker.com/engine/install/debian/)
